@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thirx</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        apple: {
+                            dark: '#000000',
+                            card: '#1c1c1e',
+                            gray: '#86868b',
+                            blue: '#0a84ff',
+                            border: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="/CSS/style.css">
+</head>
+<body class="antialiased selection:bg-apple-blue selection:text-white">
+
+    <nav class="glass-nav fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 font-semibold text-lg tracking-wider text-white">
+                    <a href="#home">THIRx.com</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#education" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Education</a>
+                        <a href="#skills" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Skills</a>
+                        <a href="#works" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Works</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#1c1c1e] border-b border-apple-border">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#education" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Education</a>
+                <a href="#skills" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#works" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Works</a>
+                <a href="#contact" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        
+        <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative pb-20">
+            <div id="canvas-container"></div>
+            
+            <div class="z-10 mt-[-2rem]">
+                <p class="text-apple-blue font-medium tracking-widest text-sm mb-4 uppercase">Portfolio & Resume</p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 h-16 md:h-20 text-center block gpu-accelerated">
+                    <span id="typewriter-text"></span><span class="typewriter-wrapper"></span>
+                </h1>
+                <p class="text-apple-gray max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+                    ยินดีต้อนรับสู่พื้นที่แสดงผลงานของผม ในการพัฒนางานทางด้านซอฟแวร์ Website, Application ระบบเครือข่าย Network และการจัดการฐานข้อมูล Database
+                </p>
+            </div>
+        </section>
+
+        <section id="education" class="py-24 bg-[#0a0a0c]">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 section-title">Education</h2>
+                
+                <div class="apple-card p-8 md:p-12 max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <div class="w-24 h-24 rounded-full bg-apple-dark border border-apple-border flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa-solid fa-university text-3xl text-apple-blue"></i>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <div class="inline-block px-3 py-1 rounded-full bg-[rgba(10,132,255,0.1)] text-apple-blue text-sm font-medium mb-3">
+                            2026 - 2029
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">มหาวิทยาลัยราชภัฏนครราชสีมา</h3>
+                        <p class="text-xl text-gray-300 mb-4">ปริญญาตรี คณะวิทยาศาสตร์และเทคโนโลยี สาขาวิทยาการคอมพิวเตอร์</p>
+                        <p class="text-apple-gray text-m md:text-base">
+                            มุ่งเน้นศึกษาเกี่ยวกับระบบคอมพิวเตอร์ การประมวลผลข้อมูล อัลกอริทึม และการพัฒนาซอฟต์แวร์ เน้นการแก้ปัญหาเชิงวิเคราะห์
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-24 bg-[#000000]">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 section-title">Professional Skills</h2>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
+                        <i class="fa-brands fa-html5 text-4xl text-[#E34F26] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+                        <span class="font-medium">HTML5</span>
+                    </div>
+                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
+                        <i class="fa-brands fa-css3-alt text-4xl text-[#1572B6] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+                        <span class="font-medium">CSS3</span>
+                    </div>
+                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
+                        <i class="fa-brands fa-js text-4xl text-[#F7DF1E] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+                        <span class="font-medium">JavaScript</span>
+                    </div>
+                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
+                        <i class="fa-brands fa-python text-4xl text-[#3776AB] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+                        <span class="font-medium">Python</span>
+                    </div>
+                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
+                        <i class="fa-brands fa-react text-4xl text-[#61DAFB] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+                        <span class="font-medium">React</span>
+                    </div>
+                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
+                        <i class="fa-brands fa-node-js text-4xl text-[#339933] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+                        <span class="font-medium">Node.js</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="works" class="py-24 bg-[#0a0a0c]">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 section-title">Selected Works</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    
+                    <div class="apple-card overflow-hidden group">
+                        <div class="relative h-64 md:h-72 w-full overflow-hidden">
+                            <img src="Picture/restaurant.png" alt="Coding Work" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                            
+                            <div class="absolute bottom-5 left-5 flex flex-wrap gap-3">
+                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
+                                    <i class="fa-brands fa-js text-[#F7DF1E] text-lg"></i>
+                                    <span class="text-white font-medium text-sm">JavaScript</span>
+                                </div>
+                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
+                                    <i class="fa-brands fa-node-js text-[#68A063] text-lg"></i>
+                                    <span class="text-white font-medium text-sm">Node.js</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-white mb-4">Web ระบบจัดการร้านอาหาร</h3>
+                            <p class="text-apple-gray text-base md:text-lg leading-relaxed mb-8">
+                                เว็บไซต์สำหรับร้านอาหารที่ต้องการความสะดวกในการจดออเดอร์ และการใช้งานที่ทันสมัย โปรเจคนี้พัฒนาด้วย HTML5, CSS3, JavaScript และ Node.js
+                            </p>
+                            <a href="#" target="_blank" class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full bg-[rgba(10,132,255,0.1)] text-apple-blue font-semibold hover:bg-gray-200 transition-colors">
+                                เข้าชมผลงาน
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- <div class="apple-card overflow-hidden group">
+                        <div class="relative h-64 md:h-72 w-full overflow-hidden">
+                            <img src="" alt="Data Analytics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                            
+                            <div class="absolute bottom-5 left-5 flex flex-wrap gap-3">
+                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
+                                    <i class="fa-brands fa-python text-[#3776AB] text-lg"></i>
+                                    <span class="text-white font-medium text-sm">Python</span>
+                                </div>
+                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
+                                    <i class="fa-solid fa-database text-[#4479A1] text-lg"></i>
+                                    <span class="text-white font-medium text-sm">SQL</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-white mb-4">AI Data Analyzer</h3>
+                            <p class="text-apple-gray text-base md:text-lg leading-relaxed mb-8">
+                                ระบบวิเคราะห์ข้อมูลขนาดใหญ่ด้วยปัญญาประดิษฐ์ ช่วยสรุปเทรนด์และสร้างรายงานอัตโนมัติ ออกแบบ UI ให้ใช้งานง่ายและประมวลผลได้อย่างรวดเร็ว
+                            </p>
+                            <a href="#" class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full bg-[rgba(10,132,255,0.1)] text-apple-blue font-semibold hover:bg-gray-200 transition-colors">
+                                เข้าชมผลงาน
+                            </a>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 bg-[#000000]">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 section-title">Let's Connect</h2>
+                <p class="text-apple-gray mb-12 text-lg">
+                    หากคุณกำลังมองหานักพัฒนาเพื่อร่วมงาน หรือมีโปรเจกต์ที่น่าสนใจ สามารถติดต่อผมได้ผ่านช่องทางด้านล่างนี้ครับ
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <a href="mailto:contact@example.com" class="apple-card w-full sm:w-auto px-8 py-5 flex items-center justify-center gap-4 hover:bg-[#2c2c2e] transition-colors cursor-pointer">
+                        <i class="fa-solid fa-envelope text-xl text-white"></i>
+                        <span class="font-medium text-white">film01.thirx@gmail.com</span>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/ffx1m.i?igsh=bzIycGdsNWM2bjR6&utm_source=qr" class="apple-card w-full sm:w-auto px-8 py-5 flex items-center justify-center gap-4 hover:bg-[#2c2c2e] transition-colors cursor-pointer">
+                        <i class="fa-brands fa-instagram text-xl text-white"></i>
+                        <span class="font-medium text-white">Instagram</span>
+                    </a>
+                    
+                    <a href="https://line.me/ti/p/dzLGQgemsN" class="apple-card w-full sm:w-auto px-8 py-5 flex items-center justify-center gap-4 hover:bg-[#2c2c2e] transition-colors cursor-pointer">
+                        <i class="fa-brands fa-line text-xl text-white"></i>
+                        <span class="font-medium text-white">Line</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-apple-border py-8 text-center bg-[#000000]">
+        <p class="text-apple-gray text-sm">
+            &copy; 2026 Thiraphat. All rights reserved. Designed with precision.
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>
