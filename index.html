@@ -1,250 +1,1009 @@
 <!DOCTYPE html>
-<html lang="th" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>thirx</title>
+    <meta name="description" content="Thiraphat Sukphia - Computer Science Graduate, Web Developer, and AI Enthusiast Portfolio">
+    <title>Portfolio</title>
     
+    <!-- Google Fonts: Prompt for elegant Thai and English typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --bg-base: #050505;
+            --bg-surface: #111111;
+            --bg-glass: rgba(17, 17, 17, 0.6);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Reset & Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        html {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Cursor (hidden on touch devices) */
+        @media (pointer: fine) {
+            body { cursor: none; }
+            .cursor-dot, .cursor-outline {
+                position: fixed;
+                top: 0; left: 0;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+                z-index: 9999;
+                pointer-events: none;
+            }
+            .cursor-dot {
+                width: 6px;
+                height: 6px;
+                background-color: var(--accent);
+            }
+            .cursor-outline {
+                width: 30px;
+                height: 30px;
+                border: 1px solid var(--border-hover);
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+            .cursor-hover .cursor-outline {
+                width: 45px;
+                height: 45px;
+                background-color: rgba(255, 255, 255, 0.05);
+                border-color: transparent;
+            }
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-base);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .progress-bar {
+            width: 200px;
+            height: 1px;
+            background: var(--border-glass);
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-fill {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-weight: 400; letter-spacing: -0.02em; }
+        h2 { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; }
+        p { color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Layout */
+        section {
+            padding: 8rem 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 1rem 5%;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0; height: 1px;
+            background: var(--text-primary);
+            transition: width 0.3s ease;
+        }
+        .nav-links a.active::after { width: 100%; }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none; border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        #home {
+            align-items: center;
+            text-align: center;
+            padding-top: 120px;
+        }
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        .brain-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        #brain-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            height: 4.5rem; /* Fix height for typing effect */
+        }
+        .typing-text { color: var(--text-primary); }
+        .caret {
+            display: inline-block;
+            width: 3px; /* เพิ่มความหนาเล็กน้อยให้ดูชัดเจนแบบ Modern UI */
+            height: 1.1em; /* ใช้ em เพื่อให้ความสูงอิงตามขนาดฟอนต์ของ h1 อัตโนมัติ */
+            background-color: var(--text-primary);
+            vertical-align: baseline; 
+            position: relative;
+            top: 0.15em; /* ปรับลดระดับลงมาเล็กน้อยให้บาลานซ์กับความสูงของตัวอักษร */
+            margin-left: 4px; /* เว้นระยะห่างจากตัวอักษรตัวสุดท้ายนิดนึง จะได้ไม่ดูเบียดเกินไป */
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: var(--text-secondary);
+        }
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-base);
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-hover);
+        }
+        .btn-outline:hover {
+            background: var(--border-glass);
+            transform: translateY(-2px);
+        }
+
+        /* Glass Card Base */
+        .glass-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
+        }
+
+        /* Education */
+        .edu-card {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .edu-logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+            transition: var(--transition);
+        }
+        .edu-logo:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.25));
+        }
+        .edu-details h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .edu-details p { margin-bottom: 0.2rem; font-size: 1.1rem; }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+        .skill-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .skill-item:hover {
+            border-color: var(--border-hover);
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-3px);
+        }
+        .skill-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .skill-item:hover i {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 12px currentColor);
+        }
+        .skill-item span { font-size: 0.9rem; font-weight: 300; }
+
+        /* Works */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .work-card {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .work-img-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, #161616, #0a0a0a);
+            border-bottom: 1px solid var(--border-glass);
+            position: relative;
+            overflow: hidden;
+        }
+        .work-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .glass-card:hover .work-img-placeholder img {
+            transform: scale(1.08);
+        }
+        .work-content { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .work-content h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .work-tech {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-family: monospace;
+        }
+        .work-desc { font-size: 0.95rem; margin-bottom: 2rem; flex-grow: 1; }
+        .work-btn { align-self: flex-start; padding: 0.5rem 1.5rem; font-size: 0.85rem; }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-item {
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .contact-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        .contact-item:hover i { opacity: 1; transform: scale(1.1); }
+        .contact-item span { display: block; font-weight: 300; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border-glass);
+            background: var(--bg-surface);
+        }
+        footer p { font-size: 0.85rem; }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 45px; height: 45px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            opacity: 0; pointer-events: none;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+        }
+        .back-to-top.visible { opacity: 1; pointer-events: all; }
+        .back-to-top:hover { background: var(--border-hover); transform: translateY(-3px); }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px; right: -100%;
+                flex-direction: column;
+                background: var(--bg-base);
+                width: 100%; height: calc(100vh - 70px);
+                align-items: center;
+                padding-top: 3rem;
+                transition: right 0.4s ease;
+                border-top: 1px solid var(--border-glass);
+            }
+            .nav-links.nav-active { right: 0; }
+            .mobile-menu-btn { display: block; }
+            .hero-title { font-size: 2.2rem; height: 3rem; }
+            .edu-card { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .btn-group { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
+            section { padding: 6rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#home" class="logo hover-target">THIRx.com</a>
+        <button class="mobile-menu-btn hover-target"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-item hover-target active">Home</a></li>
+            <li><a href="#education" class="nav-item hover-target">Education</a></li>
+            <li><a href="#skills" class="nav-item hover-target">Skills</a></li>
+            <li><a href="#works" class="nav-item hover-target">Works</a></li>
+            <li><a href="#contact" class="nav-item hover-target">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="brain-container reveal">
+                <canvas id="brain-canvas"></canvas>
+            </div>
+            
+            <h1 class="hero-title reveal" style="transition-delay: 0.1s;">
+                <span class="typing-text" id="typewriter"></span><span class="caret"></span>
+            </h1>
+            
+            <p class="hero-subtitle reveal" style="transition-delay: 0.2s;">
+                Computer Science <span style="opacity:0.3; margin:0 10px;">|</span> Web&App Developer <span style="opacity:0.3; margin:0 10px;">|</span> AI Engineer
+            </p>
+            
+            <div class="btn-group reveal" style="transition-delay: 0.3s;">
+                <a href="#works" class="btn btn-primary hover-target">View Works <i class="fas fa-arrow-right" style="font-size: 0.8rem;"></i></a>
+                <a href="#contact" class="btn btn-outline hover-target">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <span class="section-subtitle reveal">Academic Background</span>
+            <h2 class="reveal">Education</h2>
+            
+            <div class="glass-card edu-card reveal" style="transition-delay: 0.1s;">
+                <img src="Picture/NRRU.png" alt="NRRU Logo" class="edu-logo" onerror="this.src='https://placehold.co/120x120/161616/86868b?text=NRRU'">
+                <div class="edu-details">
+                    <h3>มหาวิทยาลัยราชภัฏนครราชสีมา</h3>
+                    <p>ปริญญาตรี</p>
+                    <p style="color: var(--text-primary); font-weight: 400;">คณะวิทยาศาสตร์และเทคโนโลยี</p>
+                    <p>สาขาวิทยาการคอมพิวเตอร์</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <span class="section-subtitle reveal">Technical Expertise</span>
+            <h2 class="reveal">Skills</h2>
+            
+            <div class="skills-grid">
+                <div class="skill-item reveal" style="transition-delay: 0.1s;">
+                    <i class="fa-brands fa-html5" style="color: #E34F26;"></i>
+                    <span>HTML5</span>
+                </div>
+                <div class="skill-item reveal" style="transition-delay: 0.15s;">
+                    <i class="fa-brands fa-css3-alt" style="color: #1572B6;"></i>
+                    <span>CSS3</span>
+                </div>
+                <div class="skill-item reveal" style="transition-delay: 0.2s;">
+                    <i class="fa-brands fa-js" style="color: #F7DF1E;"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="skill-item reveal" style="transition-delay: 0.5s;">
+                    <i class="fa-brands fa-node" style="color: #339933;"></i>
+                    <span>Node.js</span>
+                </div>
+                <div class="skill-item reveal" style="transition-delay: 0.25s;">
+                    <i class="fa-brands fa-python" style="color: #3776AB;"></i>
+                    <span>Python</span>
+                </div>
+                <div class="skill-item reveal" style="transition-delay: 0.4s;">
+                    <i class="fa-brands fa-git-alt" style="color: #F05032;"></i>
+                    <span>Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works">
+        <div class="container">
+            <span class="section-subtitle reveal">Selected Projects</span>
+            <h2 class="reveal">Works</h2>
+            
+            <div class="works-grid">
+                <!-- Project 1 -->
+                <div class="glass-card work-card reveal" style="transition-delay: 0.1s;">
+                    <div class="work-img-placeholder">
+                        <img src="Picture/restaurant.png" alt="Portfolio Website Project" onerror="this.src='https://placehold.co/600x400/161616/86868b?text=Portfolio'">
+                    </div>
+                    <div class="work-content">
+                        <h3>Restaurant Ordering</h3>
+                        <p class="work-tech">HTML5 • CSS3 • JavaScript</p>
+                        <p class="work-desc">กำลังอัพเดต.</p>
+                        <a href="#" class="btn btn-outline work-btn hover-target">Visit Project</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card work-card reveal" style="transition-delay: 0.2s;">
+                    <div class="work-img-placeholder">
+                        <img src="#" alt="Movie ticket booking system" onerror="this.src='https://placehold.co/600x400/161616/86868b?text=Movie ticket '">
+                    </div>
+                    <div class="work-content">
+                        <h3>Movie ticket booking system</h3>
+                        <p class="work-tech">Python • MySQL • UI Framework</p>
+                        <p class="work-desc">เร็วๆนี้.</p>
+                        <a href="#" class="btn btn-outline work-btn hover-target">Visit Project</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card work-card reveal" style="transition-delay: 0.3s;">
+                    <div class="work-img-placeholder">
+                        <img src="#" alt="Ai Chatbot" onerror="this.src='https://placehold.co/600x400/161616/86868b?text=Ai chatbot'">
+                    </div>
+                    <div class="work-content">
+                        <h3>Ai Chatbot</h3>
+                        <p class="work-tech">PHP • JavaScript • MySQL</p>
+                        <p class="work-desc">เร็วๆนี้.</p>
+                        <a href="#" class="btn btn-outline work-btn hover-target">Visit Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <span class="section-subtitle reveal">Get in Touch</span>
+            <h2 class="reveal">Contact</h2>
+            
+            <div class="glass-card reveal" style="transition-delay: 0.1s;">
+                <div class="contact-grid">
+                    <a href="#" class="contact-item hover-target">
+                        <i class="far fa-envelope"></i>
+                        <span>Email Me</span>
+                    </a>
+                    <a href="#" class="contact-item hover-target">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="#" class="contact-item hover-target">
+                        <i class="fab fa-line"></i>
+                        <span>LINE ID</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Thiraphat Sukphia. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#home" class="back-to-top hover-target"><i class="fas fa-chevron-up"></i></a>
+
+    <!-- JavaScript -->
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Prompt', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
-                    },
-                    colors: {
-                        apple: {
-                            dark: '#000000',
-                            card: '#1c1c1e',
-                            gray: '#86868b',
-                            blue: '#0a84ff',
-                            border: 'rgba(255, 255, 255, 0.1)'
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Loader Animation ---
+            const loader = document.getElementById('loader');
+            const progressFill = document.getElementById('progress-fill');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                progressFill.style.width = `${progress}%`;
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            initScrollReveal(); // Trigger reveals after load
+                        }, 800);
+                    }, 400);
+                }
+            }, 100);
+
+            // --- 2. Custom Cursor ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            const hoverTargets = document.querySelectorAll('.hover-target');
+
+            // Only run cursor logic if fine pointer is detected (not mobile touch)
+            if (window.matchMedia("(pointer: fine)").matches) {
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+
+                    // Slight delay for outline for smooth effect
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: "forwards" });
+                });
+
+                hoverTargets.forEach(target => {
+                    target.addEventListener('mouseenter', () => {
+                        document.body.classList.add('cursor-hover');
+                    });
+                    target.addEventListener('mouseleave', () => {
+                        document.body.classList.remove('cursor-hover');
+                    });
+                });
+            }
+
+            // --- 3. Mobile Menu Toggle ---
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+                const icon = menuBtn.querySelector('i');
+                if (navLinks.classList.contains('nav-active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navLinks.classList.remove('nav-active');
+                    menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                });
+            });
+
+            // --- 4. Typing Effect ---
+            const textElement = document.getElementById('typewriter');
+            const words = ["ธีรภัทร สุขเพีย", "Thiraphat Sukphia"];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typeSpeed = 100;
+
+            function type() {
+                const currentWord = words[wordIndex];
+                
+                if (isDeleting) {
+                    textElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                    typeSpeed = 50; // Faster deletion
+                } else {
+                    textElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                    typeSpeed = 100;
+                }
+
+                // If word is completely typed
+                if (!isDeleting && charIndex === currentWord.length) {
+                    isDeleting = true;
+                    typeSpeed = 2000; // Pause at end of word
+                } 
+                // If word is completely deleted
+                else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length; // Switch word
+                    typeSpeed = 500; // Pause before new word
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+            
+            // Start typing effect slightly after loader
+            setTimeout(type, 1500);
+
+            // --- 5. Scroll Reveal & Active Nav ---
+            const sections = document.querySelectorAll('section');
+            const reveals = document.querySelectorAll('.reveal');
+            const backToTop = document.querySelector('.back-to-top');
+
+            function initScrollReveal() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target); // Reveal once
+                        }
+                    });
+                }, observerOptions);
+
+                reveals.forEach(reveal => {
+                    observer.observe(reveal);
+                });
+            }
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollY = window.pageYOffset;
+
+                // Active Nav link logic
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(li => {
+                    li.classList.remove('active');
+                    if (li.getAttribute('href').includes(current)) {
+                        li.classList.add('active');
+                    }
+                });
+
+                // Back to top button visibility
+                if (scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            // --- 6. 3D AI Brain Canvas Animation (Premium Feature) ---
+            const brainCanvas = document.getElementById('brain-canvas');
+            const ctxBrain = brainCanvas.getContext('2d');
+            let brainWidth, brainHeight;
+            
+            const nodes = [];
+            const numNodes = 120;
+            const radius = 80;
+            let angleY = 0;
+            let angleX = 0.5; // slight tilt
+
+            function resizeBrain() {
+                const container = document.querySelector('.brain-container');
+                brainWidth = container.clientWidth;
+                brainHeight = container.clientHeight;
+                
+                // Adjust for high DPI displays
+                const dpr = window.devicePixelRatio || 1;
+                brainCanvas.width = brainWidth * dpr;
+                brainCanvas.height = brainHeight * dpr;
+                ctxBrain.scale(dpr, dpr);
+            }
+
+            function initBrain() {
+                for (let i = 0; i < numNodes; i++) {
+                    // Golden ratio spiral on a sphere for even distribution
+                    const phi = Math.acos(1 - 2 * (i + 0.5) / numNodes);
+                    const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+                    
+                    const x = radius * Math.cos(theta) * Math.sin(phi);
+                    const y = radius * Math.sin(theta) * Math.sin(phi);
+                    const z = radius * Math.cos(phi);
+                    
+                    nodes.push({ x, y, z });
+                }
+            }
+
+            function drawBrain() {
+                ctxBrain.clearRect(0, 0, brainWidth, brainHeight);
+                const centerX = brainWidth / 2;
+                const centerY = brainHeight / 2;
+                const focalLength = 250;
+
+                angleY += 0.005; // Slow rotation
+
+                // Project and sort nodes by depth (z-index)
+                const projectedNodes = nodes.map(node => {
+                    // Rotate Y
+                    let rotX = node.x * Math.cos(angleY) - node.z * Math.sin(angleY);
+                    let rotZ = node.z * Math.cos(angleY) + node.x * Math.sin(angleY);
+                    
+                    // Rotate X (tilt)
+                    let rotY = node.y * Math.cos(angleX) - rotZ * Math.sin(angleX);
+                    let finalZ = rotZ * Math.cos(angleX) + node.y * Math.sin(angleX);
+
+                    const scale = focalLength / (focalLength + finalZ);
+                    return {
+                        x: centerX + rotX * scale,
+                        y: centerY + rotY * scale,
+                        z: finalZ,
+                        scale: scale
+                    };
+                });
+
+                // Draw connecting neural lines
+                for (let i = 0; i < projectedNodes.length; i++) {
+                    for (let j = i + 1; j < projectedNodes.length; j++) {
+                        const p1 = projectedNodes[i];
+                        const p2 = projectedNodes[j];
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 35) { // Connection threshold
+                            const opacity = (1 - dist / 35) * 0.4;
+                            // Fade out lines in the back
+                            const zAvg = (p1.z + p2.z) / 2;
+                            const zFade = Math.max(0, (radius - zAvg) / (radius * 2));
+                            
+                            // Futuristic Tech Color for lines (Blue to Magenta based on position)
+                            const avgHue = 220 + ((p1.x + p2.x) / 2 / brainWidth) * 80 + (Math.sin(angleY)*30);
+                            
+                            ctxBrain.beginPath();
+                            ctxBrain.moveTo(p1.x, p1.y);
+                            ctxBrain.lineTo(p2.x, p2.y);
+                            ctxBrain.strokeStyle = `hsla(${avgHue}, 100%, 65%, ${opacity * zFade})`;
+                            ctxBrain.lineWidth = 1.5;
+                            ctxBrain.stroke();
                         }
                     }
                 }
+
+                // Draw nodes with Holographic Tech Glow
+                projectedNodes.forEach(p => {
+                    // Nodes in front are brighter and larger
+                    const zFade = Math.max(0.1, (radius - p.z) / (radius * 2));
+                    
+                    // Dynamic hue shifting (Cyan/Blue/Purple)
+                    const hue = 220 + (p.x / brainWidth) * 80 + (Math.sin(angleY)*30);
+                    
+                    // Outer Glow Effect
+                    ctxBrain.beginPath();
+                    ctxBrain.arc(p.x, p.y, 5 * p.scale, 0, Math.PI * 2);
+                    ctxBrain.fillStyle = `hsla(${hue}, 100%, 60%, ${zFade * 0.4})`;
+                    ctxBrain.fill();
+
+                    // Inner Bright Core
+                    ctxBrain.beginPath();
+                    ctxBrain.arc(p.x, p.y, 1.5 * p.scale, 0, Math.PI * 2);
+                    ctxBrain.fillStyle = `hsla(${hue}, 100%, 85%, ${zFade})`;
+                    ctxBrain.fill();
+                });
+
+                requestAnimationFrame(drawBrain);
             }
-        }
+
+            window.addEventListener('resize', resizeBrain);
+            resizeBrain();
+            initBrain();
+            drawBrain();
+
+
+            // --- 7. Hero Background Particles ---
+            const heroCanvas = document.getElementById('hero-canvas');
+            const ctxHero = heroCanvas.getContext('2d');
+            let hw, hh;
+            const particles = [];
+
+            function resizeHero() {
+                hw = document.getElementById('home').offsetWidth;
+                hh = document.getElementById('home').offsetHeight;
+                
+                const dpr = window.devicePixelRatio || 1;
+                heroCanvas.width = hw * dpr;
+                heroCanvas.height = hh * dpr;
+                ctxHero.scale(dpr, dpr);
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * hw;
+                    this.y = Math.random() * hh;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 1.5;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > hw) this.vx *= -1;
+                    if (this.y < 0 || this.y > hh) this.vy *= -1;
+                }
+                draw() {
+                    ctxHero.beginPath();
+                    ctxHero.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctxHero.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctxHero.fill();
+                }
+            }
+
+            function initHeroParticles() {
+                for(let i = 0; i < 50; i++) particles.push(new Particle());
+            }
+
+            function animateHero() {
+                ctxHero.clearRect(0, 0, hw, hh);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateHero);
+            }
+
+            window.addEventListener('resize', resizeHero);
+            resizeHero();
+            initHeroParticles();
+            animateHero();
+
+        });
     </script>
-
-    <link rel="stylesheet" href="/CSS/style.css">
-</head>
-<body class="antialiased selection:bg-apple-blue selection:text-white">
-
-    <nav class="glass-nav fixed top-0 w-full z-50 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0 font-semibold text-lg tracking-wider text-white">
-                    <a href="#home">THIRx.com</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Home</a>
-                        <a href="#education" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Education</a>
-                        <a href="#skills" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Skills</a>
-                        <a href="#works" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Works</a>
-                        <a href="#contact" class="text-gray-300 hover:text-white transition px-3 py-2 text-sm font-medium">Contact</a>
-                    </div>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-400 hover:text-white focus:outline-none">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-[#1c1c1e] border-b border-apple-border">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="#education" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Education</a>
-                <a href="#skills" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Skills</a>
-                <a href="#works" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Works</a>
-                <a href="#contact" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="pt-16">
-        
-        <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative pb-20">
-            <div id="canvas-container"></div>
-            
-            <div class="z-10 mt-[-2rem]">
-                <p class="text-apple-blue font-medium tracking-widest text-sm mb-4 uppercase">Portfolio & Resume</p>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 h-16 md:h-20 text-center block gpu-accelerated">
-                    <span id="typewriter-text"></span><span class="typewriter-wrapper"></span>
-                </h1>
-                <p class="text-apple-gray max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
-                    ยินดีต้อนรับสู่พื้นที่แสดงผลงานของผม ในการพัฒนางานทางด้านซอฟแวร์ Website, Application ระบบเครือข่าย Network และการจัดการฐานข้อมูล Database
-                </p>
-            </div>
-        </section>
-
-        <section id="education" class="py-24 bg-[#0a0a0c]">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 section-title">Education</h2>
-                
-                <div class="apple-card p-8 md:p-12 max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8">
-                    <div class="w-24 h-24 rounded-full bg-apple-dark border border-apple-border flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <i class="fa-solid fa-university text-3xl text-apple-blue"></i>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <div class="inline-block px-3 py-1 rounded-full bg-[rgba(10,132,255,0.1)] text-apple-blue text-sm font-medium mb-3">
-                            2026 - 2029
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">มหาวิทยาลัยราชภัฏนครราชสีมา</h3>
-                        <p class="text-xl text-gray-300 mb-4">ปริญญาตรี คณะวิทยาศาสตร์และเทคโนโลยี สาขาวิทยาการคอมพิวเตอร์</p>
-                        <p class="text-apple-gray text-m md:text-base">
-                            มุ่งเน้นศึกษาเกี่ยวกับระบบคอมพิวเตอร์ การประมวลผลข้อมูล อัลกอริทึม และการพัฒนาซอฟต์แวร์ เน้นการแก้ปัญหาเชิงวิเคราะห์
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="py-24 bg-[#000000]">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 section-title">Professional Skills</h2>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
-                        <i class="fa-brands fa-html5 text-4xl text-[#E34F26] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
-                        <span class="font-medium">HTML5</span>
-                    </div>
-                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
-                        <i class="fa-brands fa-css3-alt text-4xl text-[#1572B6] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
-                        <span class="font-medium">CSS3</span>
-                    </div>
-                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
-                        <i class="fa-brands fa-js text-4xl text-[#F7DF1E] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
-                        <span class="font-medium">JavaScript</span>
-                    </div>
-                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
-                        <i class="fa-brands fa-python text-4xl text-[#3776AB] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
-                        <span class="font-medium">Python</span>
-                    </div>
-                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
-                        <i class="fa-brands fa-react text-4xl text-[#61DAFB] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
-                        <span class="font-medium">React</span>
-                    </div>
-                    <div class="apple-card p-6 flex flex-col items-center justify-center text-center group">
-                        <i class="fa-brands fa-node-js text-4xl text-[#339933] mb-4 group-hover:scale-110 transition-transform duration-300"></i>
-                        <span class="font-medium">Node.js</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="works" class="py-24 bg-[#0a0a0c]">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 section-title">Selected Works</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    
-                    <div class="apple-card overflow-hidden group">
-                        <div class="relative h-64 md:h-72 w-full overflow-hidden">
-                            <img src="Picture/restaurant.png" alt="Coding Work" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                            
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <div class="absolute bottom-5 left-5 flex flex-wrap gap-3">
-                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
-                                    <i class="fa-brands fa-js text-[#F7DF1E] text-lg"></i>
-                                    <span class="text-white font-medium text-sm">JavaScript</span>
-                                </div>
-                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
-                                    <i class="fa-brands fa-node-js text-[#68A063] text-lg"></i>
-                                    <span class="text-white font-medium text-sm">Node.js</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-8">
-                            <h3 class="text-2xl font-bold text-white mb-4">Web ระบบจัดการร้านอาหาร</h3>
-                            <p class="text-apple-gray text-base md:text-lg leading-relaxed mb-8">
-                                เว็บไซต์สำหรับร้านอาหารที่ต้องการความสะดวกในการจดออเดอร์ และการใช้งานที่ทันสมัย โปรเจคนี้พัฒนาด้วย HTML5, CSS3, JavaScript และ Node.js
-                            </p>
-                            <a href="#" target="_blank" class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full bg-[rgba(10,132,255,0.1)] text-apple-blue font-semibold hover:bg-gray-200 transition-colors">
-                                เข้าชมผลงาน
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- <div class="apple-card overflow-hidden group">
-                        <div class="relative h-64 md:h-72 w-full overflow-hidden">
-                            <img src="" alt="Data Analytics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                            
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <div class="absolute bottom-5 left-5 flex flex-wrap gap-3">
-                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
-                                    <i class="fa-brands fa-python text-[#3776AB] text-lg"></i>
-                                    <span class="text-white font-medium text-sm">Python</span>
-                                </div>
-                                <div class="glass-tag flex items-center gap-2 px-4 py-2 rounded-xl">
-                                    <i class="fa-solid fa-database text-[#4479A1] text-lg"></i>
-                                    <span class="text-white font-medium text-sm">SQL</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-8">
-                            <h3 class="text-2xl font-bold text-white mb-4">AI Data Analyzer</h3>
-                            <p class="text-apple-gray text-base md:text-lg leading-relaxed mb-8">
-                                ระบบวิเคราะห์ข้อมูลขนาดใหญ่ด้วยปัญญาประดิษฐ์ ช่วยสรุปเทรนด์และสร้างรายงานอัตโนมัติ ออกแบบ UI ให้ใช้งานง่ายและประมวลผลได้อย่างรวดเร็ว
-                            </p>
-                            <a href="#" class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full bg-[rgba(10,132,255,0.1)] text-apple-blue font-semibold hover:bg-gray-200 transition-colors">
-                                เข้าชมผลงาน
-                            </a>
-                        </div>
-                    </div> -->
-
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-24 bg-[#000000]">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 section-title">Let's Connect</h2>
-                <p class="text-apple-gray mb-12 text-lg">
-                    หากคุณกำลังมองหานักพัฒนาเพื่อร่วมงาน หรือมีโปรเจกต์ที่น่าสนใจ สามารถติดต่อผมได้ผ่านช่องทางด้านล่างนี้ครับ
-                </p>
-                
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-                    <a href="mailto:contact@example.com" class="apple-card w-full sm:w-auto px-8 py-5 flex items-center justify-center gap-4 hover:bg-[#2c2c2e] transition-colors cursor-pointer">
-                        <i class="fa-solid fa-envelope text-xl text-white"></i>
-                        <span class="font-medium text-white">film01.thirx@gmail.com</span>
-                    </a>
-                    
-                    <a href="https://www.instagram.com/ffx1m.i?igsh=bzIycGdsNWM2bjR6&utm_source=qr" class="apple-card w-full sm:w-auto px-8 py-5 flex items-center justify-center gap-4 hover:bg-[#2c2c2e] transition-colors cursor-pointer">
-                        <i class="fa-brands fa-instagram text-xl text-white"></i>
-                        <span class="font-medium text-white">Instagram</span>
-                    </a>
-                    
-                    <a href="https://line.me/ti/p/dzLGQgemsN" class="apple-card w-full sm:w-auto px-8 py-5 flex items-center justify-center gap-4 hover:bg-[#2c2c2e] transition-colors cursor-pointer">
-                        <i class="fa-brands fa-line text-xl text-white"></i>
-                        <span class="font-medium text-white">Line</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="border-t border-apple-border py-8 text-center bg-[#000000]">
-        <p class="text-apple-gray text-sm">
-            &copy; 2026 Thiraphat. All rights reserved. Designed with precision.
-        </p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <script src="JS/script.js"></script>
 </body>
 </html>
